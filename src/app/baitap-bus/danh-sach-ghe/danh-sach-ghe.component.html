@@ -1,0 +1,15 @@
+<div class="container">
+  <h2 class="text-center text-warning">Bài tập đặt vé xe Bus</h2>
+  <div class="row">
+    <div class="col-sm-6">
+      <ng-container *ngFor="let item of mangGhe; let index = index">
+        <app-item-ghe [ghe]="item" (eventGhe)="chooseGhe($event)"></app-item-ghe>
+        <br *ngIf="(index + 1) % 4 === 0">
+      </ng-container>
+    </div>
+    <div class="col-sm-6">
+      <h3>Danh sách ghế đã đặt</h3>
+      <p *ngFor="let item of mangGheDaChon">Ghế: số {{ item.SoGhe }} - ${{ item.Gia }}</p>
+    </div>
+  </div>
+</div>
