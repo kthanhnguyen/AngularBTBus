@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { ItemGheComponent } from '../item-ghe/item-ghe.component';
 
 @Component({
   selector: 'app-danh-sach-ghe',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./danh-sach-ghe.component.scss']
 })
 export class DanhSachGheComponent implements OnInit {
+  @ViewChildren(ItemGheComponent) tagListItemGhe: QueryList<ItemGheComponent>;
+
   mangGhe: any = [
     { SoGhe: 1, TenGhe: "số 1", Gia: 100, TrangThai: false },
     { SoGhe: 2, TenGhe: "số 2", Gia: 100, TrangThai: false },
@@ -45,6 +48,8 @@ export class DanhSachGheComponent implements OnInit {
   ];
 
   mangGheDaChon:any = [];
+  tongTien:number = 0;
+  
 
   constructor() { }
 
@@ -57,7 +62,18 @@ export class DanhSachGheComponent implements OnInit {
         this.mangGheDaChon.push(item);
       }
     });
-    console.log(this.mangGheDaChon.length);
+    this.mangGheDaChon.find(item => {
+      return this.tongTien += item.Gia;
+    })
+    
   }
 
+  viewChildren() {
+    
+    this.tagListItemGhe.map(item => {
+      
+    })
+
+   
+  }
 }
