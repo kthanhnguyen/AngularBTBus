@@ -1,19 +1,34 @@
 <div class="container">
-  <h2 class="text-center text-warning">Bài tập đặt vé xe Bus</h2>
-  <div class="row">
-    <div class="col-sm-6">
-      <ng-container *ngFor="let item of mangGhe; let index = index">
-        <app-item-ghe [ghe]="item" (eventGhe)="chooseGhe($event)"></app-item-ghe>
-        <br *ngIf="(index + 1) % 4 === 0">
-      </ng-container>
-    </div>
-    <div class="col-sm-6">
-      <h3>Danh sách ghế đã đặt <span>({{ mangGheDaChon.length }})</span></h3>
-      <div *ngFor="let item of mangGheDaChon">Ghế: số {{ item.SoGhe }} - ${{ item.Gia }}
-        <a class="text-danger btn-huy" (click)="viewChildren()">[Hủy]</a>
+  <h2 class="text-center text-warning mb-5">Bài tập đặt vé xe Bus</h2>
+  <div class="content">
+    <div class="row">
+      <div class="col-sm-6 rowGhe">
+        <div class="danhSachGhe">
+          <p class="taiXe">Tài xế</p>
+          <div class="gheContent">
+            <ng-container *ngFor="let item of mangGhe; let index = index">
+              <app-item-ghe [ghe]="item" (eventGhe)="chooseGhe($event)"></app-item-ghe>
+              <br *ngIf="(index + 1) % 4 === 0">
+            </ng-container>
+          </div>
+        </div>
       </div>
-      <p class="mt-3 text-success">Tổng tiền: {{ tongTien }}
-      </p>
+      <div class="col-sm-6">
+        <h3 class="text-center">Danh sách ghế đã đặt <span>({{ mangGheDaChon.length }})</span></h3>
+        <div *ngFor="let item of mangGheDaChon; let i = index" class="mb-1">Ghế: số {{ item.SoGhe }} - ${{ item.Gia }}
+          <a class="text-danger btn-huy" (click)="huyGhe(item.SoGhe, i)">[Hủy]</a>
+        </div>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <p class="mt-3 text-success text-right">Tổng tiền: {{ tinhTongTien() }}</p>
+      </div>
+    </div>
+    <ng-container *ngIf="mangGheDaChon.length > 0">
+      <div class="mt-3 text-center">
+        <button class="btn btn-success" (click)="xacNhan()">Xác nhận</button>
+      </div>
+    </ng-container>
   </div>
 </div>

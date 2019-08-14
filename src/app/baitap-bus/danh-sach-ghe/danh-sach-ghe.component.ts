@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { ItemGheComponent } from '../item-ghe/item-ghe.component';
+import { compileNgModule } from '@angular/compiler';
 
 @Component({
   selector: 'app-danh-sach-ghe',
@@ -56,24 +57,56 @@ export class DanhSachGheComponent implements OnInit {
   ngOnInit() {
   }
 
+  
+
   chooseGhe(ghe){
-    this.mangGhe.map(item => {
-      if(item.SoGhe === ghe.SoGhe) {
-        this.mangGheDaChon.push(item);
+    this.tagListItemGhe.map(item => {
+      if(item.ghe.SoGhe === ghe.SoGhe) {
+        if(item.trangThaiChon === true && item.ghe.SoGhe === ghe.SoGhe) {
+          this.mangGheDaChon.push(ghe);
+        }
+        else {
+          this.mangGheDaChon.map((item, index) => {
+            if (ghe.SoGhe === item.SoGhe){
+              this.mangGheDaChon.splice(index, 1)
+            }
+          })
+        }
       }
-    });
-    this.mangGheDaChon.find(item => {
-      return this.tongTien += item.Gia;
     })
-    
+    this.mangGheDaChon.sort((n1, n2) => n1.SoGhe - n2.SoGhe)
+    this.tinhTongTien();
   }
 
-  viewChildren() {
-    
+  huyGhe(soGhe, i) {
+    this.mangGheDaChon.splice(i, 1);
     this.tagListItemGhe.map(item => {
-      
+      if(item.ghe.SoGhe === soGhe) {
+        item.trangThaiChon = !item.trangThaiChon;
+      }
     })
+  }
 
-   
+  tinhTongTien() {
+    let tien = this.mangGheDaChon.map(item => {
+      return item.Gia;
+    })
+    this.tongTien = tien.reduce((acc, val) => { 
+      return acc + val; 
+    }, 0)
+    return this.tongTien;
+  }
+
+  xacNhan() {
+    this.mangGheDaChon.map(item1 => {
+      this.mangGhe.map(item2 => {
+        if (item1.SoGhe === item2.SoGhe) {
+          item2.TrangThai = true;
+        }
+      });
+    });
+
+    this.mangGheDaChon = [];
+    alert("Đặt vé thành công");
   }
 }
