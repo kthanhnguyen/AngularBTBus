@@ -50,14 +50,11 @@ export class DanhSachGheComponent implements OnInit {
 
   mangGheDaChon:any = [];
   tongTien:number = 0;
-  
 
   constructor() { }
 
   ngOnInit() {
   }
-
-  
 
   chooseGhe(ghe){
     this.tagListItemGhe.map(item => {
@@ -75,7 +72,6 @@ export class DanhSachGheComponent implements OnInit {
       }
     })
     this.mangGheDaChon.sort((n1, n2) => n1.SoGhe - n2.SoGhe)
-    this.tinhTongTien();
   }
 
   huyGhe(soGhe, i) {
@@ -91,8 +87,8 @@ export class DanhSachGheComponent implements OnInit {
     let tien = this.mangGheDaChon.map(item => {
       return item.Gia;
     })
-    this.tongTien = tien.reduce((acc, val) => { 
-      return acc + val; 
+    this.tongTien = tien.reduce((acc, val) => {
+      return acc + val;
     }, 0)
     return this.tongTien;
   }
